@@ -1,0 +1,589 @@
+
+<!DOCTYPE html>
+<!--
+  ORIGINAL from: http://code.google.com/p/html5wow/
+  Changes by: Emmanuel Venisse (evenisse@bistri.com)
+  Same license.
+-->
+<!--
+Copyright 2011 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author: Eric Bidelman (ericbidelman@chromium.org)
+        Arne Roomann-Kurrik (kurrik@chromium.org)
+-->
+<html>
+<head>
+  <title>Meetup WebRTC Paris</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="css/prettify.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet/less" type="text/css" href="css/slide-presentation.less">
+  <link rel="stylesheet/less" type="text/css" href="css/slide-content.less">
+</head>
+  <body>
+    <script type="text/html">
+      <!DOCTYPE html>
+      <html>
+        <style>h1 { font:18pt Arial; color: #ccc; text-align: center; }</style>
+        <body>
+          <h1>loading...</h1>
+        </body>
+      </html>
+    </script>
+
+    <div id="content" class="hidden">
+      <div id="bg-pattern" class="background"></div>
+      <div id="bg-white" class="background"></div>
+      <div id="bg-black" class="background"></div>
+      <div id="bg-google-blue" class="background"></div>
+      <div id="bg-google-purple" class="background"></div>
+      <div id="bg-google-darkblue" class="background"></div>
+      <div id="bg-google-green" class="background"></div>
+      <div id="bg-google-yellow" class="background"></div>
+      <div id="bg-google-red" class="background"></div>
+
+<!--
+ *
+ * Controls
+ *
+-->
+<div class="slide transparent centercontents" data-backgroundid="bg-pattern">
+  <aside class="note">
+    <section>
+      Welcome! (This field is for presenter notes and commentary.)
+    </section>
+  </aside>
+  <section>
+    Press:
+    <ul>
+      <li>Space or <span class="key">&larr;</span> / <span class='key'>&rarr;</span> to move around</li>
+      <li><span class="key">Ctrl/Command</span> / <span class='key'>–</span> or <span class='key'>+</span> to zoom in and out if slides don’t fit</li>
+      <li><span class="key">N</span> to show/hide speaker notes</li>
+      <li><span class="key">H</span> to highlight important elements in code snippets</li>
+    </ul>
+  </section>
+  <!--<section>
+    <a href="javascript:window.open('/remote', 'remoteWin', 'top=0,left=0,height=300,width=100,resizable=no,scrollbars=no,status=no')">Launch remote control</a>
+  </section>-->
+</div>
+
+
+<!--
+ *
+ * Title
+ *
+-->
+<div class="slide centercontents centertext" id="slide-title" data-backgroundid="bg-pattern">
+  <h1>Présentation de WebRTC</h1>
+  <section>
+    <img src="images/webrtc_logo.jpg" width="150px" height="150px">
+  </section>
+  <section>
+    <strong>Emmanuel Venisse</strong><br>
+    <strong>Aurélien Hiron</strong><br>
+  </section>
+  <section>
+    <strong>Meetup WebRTC Paris</strong><br>
+    <time pubdate datetime="2012-12-13">13 décembre 2012</time><br>
+    <i><a href="http://code.google.com/p/html5wow/">Slide Template by HTML5 WOW</a></i>
+  </section>
+</div>
+
+
+<!--
+ *
+ * Qui sommes nous?
+ *
+-->
+<div class="slide centercontents" id="profile-slide" data-backgroundid="bg-pattern">
+  <header>Qui sommes-nous?</header>
+  <section>
+    <div>
+      <img src="images/evenisse.jpg" width="100px" height="100px"/><br>
+      Emmanuel Venisse<br>
+      <a target="_blank" href="http://www.twitter.com/evenisse" class="twitter">@evenisse</a>
+    </div>
+    <div>
+      <ul style="list-style-type: none;">
+        <li>CTO chez Bistri</li>
+        <li>Membre du W3C</li>
+        <li>Membre de la fondation Apache</li>
+      </ul>
+    </div>
+  </section>
+  <section>
+    <div>
+      Aurélien Hiron<br>
+    </div>
+    <div>
+      <ul style="list-style-type: none;">
+        <li>Développeur et Expert vidéo chez Bistri</li>
+        <li>Membre du W3C</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!--
+ *
+ * WebRTC
+ *
+-->
+<div class="slide transparent segue centercontents" data-backgroundid="bg-pattern">
+  <h1>WebRTC: Real Time Communication for the Web</h1>
+  <p><a href="http://www.webrtc.org/"><img src="images/webrtc_logo.jpg" width="150px" height="150px"></a></p>
+</div>
+
+<!--
+ *
+ * L'existant
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Conférence vidéo sur le web: l'existant</header>
+  <section>
+  <img src="images/skype_logo_1_medium.jpg">
+  <img src="images/google_plus.png">
+  <img src="images/webex_logo.jpg">
+  </section>
+</div>
+
+<!--
+ *
+ * Les besoins
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Conférence vidéo: les besoins</header>
+  <section>
+    <ul>
+      <li>des codecs (voix et video)
+      </li>
+      <li>Suppression de l'écho
+      </li>
+      <li>Réduction/suppression du bruit
+      </li>
+      <li>Gestion des erreurs
+      </li>
+      <li>Passage de réseau
+      </li>
+      <li>Mode Peer-to-Peer
+      </li>
+      <li>Management de session
+      </li>
+      <li>...
+      </li>
+    </ul>
+  </section>
+</div>
+
+<!--
+ *
+ * Crazy
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Conférence vidéo sur le web: les besoins</header>
+  <section>
+  <img src="images/crazy.gif">
+  </section>
+</div>
+
+<!--
+ *
+ * Building Blocks
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Le minimum à savoir</header>
+  <section>
+    <ul>
+      <li>Mettre une vidéo sur une page web
+        <ul>
+          <li>&lt;video> element</li>
+        </ul>
+      </li>
+      <li>Accéder à la caméra et au micro
+        <ul>
+          <li><a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">navigator.getUserMedia()</a></li>
+        </ul>
+      </li>
+      <li>Accéder au flux audio/vidéo en local ou depuis un hôte distant
+        <ul>
+          <li><a href="http://dev.w3.org/2006/webapi/FileAPI/#dfn-createObjectURL">createObjectURL</a></li>
+        </ul>
+      </li>
+      <li>Connecter les hôtes distants
+        <ul>
+          <li><a href="http://dev.w3.org/2011/webrtc/editor/webrtc.html#peerconnection">PeerConnection API</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section data-build>
+    <h3><i>==> Rien à installer!</i></h3>
+  </section>
+</div>
+
+<!--
+ *
+ * Architecture
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <div>
+    <section class="topWide dark" data-auto="">
+      <h1>Architecture</h1>
+    </section>
+    <a href="http://www.webrtc.org/reference/architecture"><img src="images/webrtc_architecture.png" width="100%"></a>
+  </div>
+</div>
+
+<!--
+ *
+ * Accès aux périphériques
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Accès aux périphériques: <i>getUserMedia(), createObjectURL</i></header>
+  <section>
+    <pre>
+&lt;video id="sourcevid" autoplay>&lt/video>
+&lt;script>
+  var video = document.getElementById('sourcevid');
+  navigator.<b>getUserMedia</b>({ video: true, audio: true }, success, error);
+  function success(stream) {
+      video.src = window.URL.<b>createObjectURL</b>(stream);
+  }
+&lt;/script></pre>
+  </section>
+</div>
+
+<!--
+ *
+ * Demos
+ *
+-->
+<div class="slide transparent image" style="background: url('images/WebRTCDemo.jpg') no-repeat; -webkit-background-size: cover; background-size: cover;">
+  <div>
+    <section class="bottomRight dark" data-auto="">
+      <h1>Demo: getUserMedia, createObjectURL</h1>
+    </section>
+  </div>
+</div>
+
+<!--
+ *
+ * PeerConnection: Les principes
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Contacter un utilisateur distant: <i>PeerConnection</i></header>
+  <section>
+          <ol>
+            <li>Accéder aux flux locaux</li>
+            <li>Etablir la connexion: XMPP, WebSockets, SIP, etc.</li>
+            <li>Ajouter les flux distants dans la page</li>
+          </ol>
+  </section>
+</div>
+
+<!--
+ *
+ * Connexion
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <div>
+    <section class="topWide dark" data-auto="">
+      <h1>Connexion</h1>
+    </section>
+    <figure>
+    <img src="images/JSEP_architecture.jpg" width="90%">
+    <figcaption>JSEP architecture</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!--
+ *
+ * Add remote stream
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Add the remote stream</header>
+  <section>
+    <pre>
+function createPeerConnection() {
+    try {
+      pc = <b>new webkitPeerConnection({ iceServers:[ { uri:"stun:stun.l.google.com:19302" } ] },
+                                                      null)</b>;
+    } catch (e) {
+      console.log("Failed to create PeerConnection, exception: " + e.message);
+      return;
+    }
+
+    <b>pc.onconnecting</b> = onSessionConnecting;
+    <b>pc.onopen</b> = onSessionOpened;
+    <b>pc.onaddstream</b> = onRemoteStreamAdded;
+    <b>pc.onremovestream</b> = onRemoteStreamRemoved;
+}
+  
+function onRemoteStreamAdded(event) {
+    remoteVideo.src = window.URL.createObjectURL(event.stream);
+}</pre>                                
+  </section>
+</div>
+
+<!--
+ *
+ * STUN Architecture
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <div>
+    <section class="topWide dark" data-auto="">
+      <h1>Architecture ICE/STUN/TURN</h1>
+    </section>
+    <img src="images/stun.png" width="100%">
+  </div>
+</div>
+
+<!--
+ *
+ * Data Pathways Architecture
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <div>
+    <section class="topWide dark" data-auto="">
+      <h1>Architecture ICE/STUN/TURN</h1>
+    </section>
+    <img src="images/wdataPathways.jpg" width="100%">
+  </div>
+</div>
+
+<!--
+ *
+ * 
+ *
+-->
+<div class="slide transparent image" style="background: url('images/WebRTCDemo.jpg') no-repeat; -webkit-background-size: cover; background-size: cover;">
+  <div>
+    <section class="topWide dark" data-auto="">
+      <h1 style="text-align:center">WebRTC: la vidéo-conférence, mais pas seulement</h1>
+    </section>
+  </div>
+</div>
+
+<!--
+ *
+ * Data Channel
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>DataChannel API</header>
+  <section class="topWide dark" data-auto="">
+    <ul>
+      <li>Echange peer-to-peer de données, avec une faible latence et un haut débit</li>
+      <li>Possibilité d'utiliser ou non l'audio/vidéo</li>
+    </ul>
+    <h1>Use cases:</h1>
+    <ul>
+      <li>Jeux</li>
+      <li>Transfert de fichiers</li>
+      <li>Application de monitoring temps réel</li>
+      <li>Application de chat</li>
+      <li>etc.</li>
+    </ul>
+  </section>
+
+</div>
+
+<!--
+ *
+ * DataChannel
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>DataChannel: example</header>
+  <section>
+    <pre>
+// PeerConnection setup and offer-answer exchange omitted  
+var dc1 = <b>pc1.createDataChannel("mylabel")</b>;  // create the sending DataChannel (reliable mode)
+var dc2 = <b>pc2.createDataChannel("mylabel")</b>;  // create the receiving DataChannel (reliable mode)
+
+// append received DataChannel messages to a textarea
+var receiveTextarea = document.querySelector("textarea#receive");
+<b>dc2.onmessage</b> = function(event) { 
+  receiveTextarea.value += <b>event.data</b>;
+};  
+
+var sendInput = document.querySelector("input#send");
+// send message over the DataChannel
+function onSend() {
+  <b>dc1.send(sendInput.value)</b>; 
+}</pre>                                
+  </section>
+</div>
+
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>WebRTC: Le futur</header>
+  <section>
+    <ul>
+      <li><a href="http://dev.chromium.org/developers/design-documents/extensions/proposed-changes/apis-under-development/webrtc-tab-content-capture">WebRTC Tab Content Capture (proposé le 14 août 2012)</a>
+      <blockquote>
+        <p>
+          <em>
+          The proposed APIs enable tab output to be captured as a media stream, and transmitted using WebRTC.
+          Supporting APIs are also defined to notify and query the capture status for tabs....
+          This API enables a special form of screencasting, but in which users are able to share the contents of a
+          tab rather than sharing their entire desktop.
+          </em>
+        </p>
+      </blockquote>
+      </li>
+      <li>
+        Partage d'écran
+      </li>
+      <li>
+        Enregistrement des flux
+      </li>
+    </ul>
+  </section>
+</div>
+
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Statut</header>
+  <section>
+    <ul>
+      <li>Chrome
+        <ul>
+          <li>depuis Chrome 23: getUserMedia, PeerConnection
+          </li>
+          <li>dev channel: DataChannel, TabCapture
+          </li>
+        </ul>
+      </li>
+      <li>Firefox
+        <ul>
+          <li>Firefox 17(Aurora): getUserMedia, PeerConnection, DataChannel
+          </li>
+        </ul>
+      </li>
+      <li>Opéra
+        <ul>
+          <li>depuis version 12: getUserMedia
+          </li>
+        </ul>
+      </li>
+      <li>MS IE
+        <ul>
+          <li>Forte participation au WG
+          </li>
+          <li>Avancement de l'implémentation inconnue
+          </li>
+        </ul>
+      </li>
+      <li>Safari
+        <ul>
+          <li>Aucune information.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Statut</header>
+  <section>
+    <ul>
+      <li>Mobile?</li>
+    </ul>
+  </section>
+</div>
+
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Liens</header>
+  <section>
+    <ul>
+      <li>
+        <a href="http://www.w3.org/TR/webrtc/">http://www.w3.org/TR/webrtc/</a>
+      </li>
+      <li>
+        <a href="http://tools.ietf.org/wg/rtcweb/">http://tools.ietf.org/wg/rtcweb/</a>
+      </li>
+      <li>
+        <a href="http://blog.chromium.org/2012/04/chromes-webrtc-roadmap.html">http://blog.chromium.org/2012/04/chromes-webrtc-roadmap.html</a>
+      </li>
+      <li>
+        <a href="http://www.webrtc.org/faq-recent-topics">http://www.webrtc.org/faq-recent-topics</a>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<!--
+ *
+ * 
+ *
+-->
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Crédits</header>
+  <section>
+    <ul>
+      <li>
+        <a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/">http://www.html5rocks.com/en/tutorials/webrtc/basics/</a>
+      </li>
+      <li>
+        <a href="http://html5videoguide.net/presentations/WebDirCode2012/">http://html5videoguide.net/presentations/WebDirCode2012/</a>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<!--
+ *
+ * 
+ *
+-->
+<div class="slide transparent image" style="background: url('images/WebRTCDemo.jpg') no-repeat; -webkit-background-size: cover; background-size: cover;">
+  <div>
+    <section class="topWide dark" data-auto="">
+      <h1 style="text-align:center">Questions?</h1>
+    </section>
+  </div>
+</div>
+
+    </div><!-- ends div id=content -->
+    <div id="overlay"></div>
+
+    <script src="js/libs/less-1.0.41.min.js" async></script>
+    <script src="js/prettify.js" async></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/libs/yepnope.1.0.1-min.js" defer></script>
+    <script src="js/slide-presentation.js" defer></script>
+    <script src="js/slide-content.js" defer></script>
+
+    <!--[if IE]>
+    <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+    <![endif]-->
+    <div id="background"></div>
+    <div id="stage"></div>
+  </body>
+</html>

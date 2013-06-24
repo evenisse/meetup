@@ -5,27 +5,9 @@
   Changes by: Emmanuel Venisse (evenisse@bistri.com)
   Same license.
 -->
-<!--
-Copyright 2011 Google Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-Author: Eric Bidelman (ericbidelman@chromium.org)
-        Arne Roomann-Kurrik (kurrik@chromium.org)
--->
 <html>
 <head>
-  <title>Meetup WebRTC Paris</title>
+  <title>Meetup HTML5 Paris - 24 juin 2013</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <link rel="stylesheet" href="css/prettify.css">
@@ -93,11 +75,10 @@ Author: Eric Bidelman (ericbidelman@chromium.org)
   </section>
   <section>
     <strong>Emmanuel Venisse</strong><br>
-    <strong>Aurélien Hiron</strong><br>
   </section>
   <section>
-    <strong>Meetup WebRTC Paris</strong><br>
-    <time pubdate datetime="2012-12-13">13 décembre 2012</time><br>
+    <strong>Meetup HTML5 Paris</strong><br>
+    <time pubdate datetime="2013-06-24">24 juin 2013</time><br>
     <i><a href="http://code.google.com/p/html5wow/">Slide Template by HTML5 WOW</a></i>
   </section>
 </div>
@@ -105,11 +86,11 @@ Author: Eric Bidelman (ericbidelman@chromium.org)
 
 <!--
  *
- * Qui sommes nous?
+ * Qui suis-je?
  *
 -->
 <div class="slide centercontents" id="profile-slide" data-backgroundid="bg-pattern">
-  <header>Qui sommes-nous?</header>
+  <header>Qui suis-je?</header>
   <section>
     <div>
       <img src="images/evenisse.jpg" width="100px" height="100px"/><br>
@@ -121,17 +102,6 @@ Author: Eric Bidelman (ericbidelman@chromium.org)
         <li>CTO chez Bistri</li>
         <li>Membre du W3C</li>
         <li>Membre de la fondation Apache</li>
-      </ul>
-    </div>
-  </section>
-  <section>
-    <div>
-      Aurélien Hiron<br>
-    </div>
-    <div>
-      <ul style="list-style-type: none;">
-        <li>Développeur et Expert vidéo chez Bistri</li>
-        <li>Membre du W3C</li>
       </ul>
     </div>
   </section>
@@ -158,83 +128,6 @@ Author: Eric Bidelman (ericbidelman@chromium.org)
   <img src="images/skype_logo_1_medium.jpg">
   <img src="images/google_plus.png">
   <img src="images/webex_logo.jpg">
-  </section>
-</div>
-
-<!--
- *
- * Les besoins
- *
--->
-<div class="slide centercontents" data-backgroundid="bg-pattern">
-  <header>Conférence vidéo: les besoins</header>
-  <section>
-    <ul>
-      <li>des codecs (voix et video)
-      </li>
-      <li>Suppression de l'écho
-      </li>
-      <li>Réduction/suppression du bruit
-      </li>
-      <li>Gestion des erreurs
-      </li>
-      <li>Passage de réseau
-      </li>
-      <li>Mode Peer-to-Peer
-      </li>
-      <li>Management de session
-      </li>
-      <li>...
-      </li>
-    </ul>
-  </section>
-</div>
-
-<!--
- *
- * Crazy
- *
--->
-<div class="slide centercontents" data-backgroundid="bg-pattern">
-  <header>Conférence vidéo sur le web: les besoins</header>
-  <section>
-  <img src="images/crazy.gif">
-  </section>
-</div>
-
-<!--
- *
- * Building Blocks
- *
--->
-<div class="slide centercontents" data-backgroundid="bg-pattern">
-  <header>Le minimum à savoir</header>
-  <section>
-    <ul>
-      <li>Mettre une vidéo sur une page web
-        <ul>
-          <li>&lt;video> element</li>
-        </ul>
-      </li>
-      <li>Accéder à la caméra et au micro
-        <ul>
-          <li><a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">navigator.getUserMedia()</a></li>
-        </ul>
-      </li>
-      <li>Accéder au flux audio/vidéo en local ou depuis un hôte distant
-        <ul>
-          <li><a href="http://dev.w3.org/2006/webapi/FileAPI/#dfn-createObjectURL">createObjectURL</a></li>
-        </ul>
-      </li>
-      <li>Connecter les hôtes distants
-        <ul>
-          <li><a href="http://dev.w3.org/2011/webrtc/editor/webrtc.html#peerconnection">PeerConnection API</a></li>
-        </ul>
-      </li>
-    </ul>
-  </section>
-  <section data-build>
-    <h3><i>==> Rien à installer!</i></h3>
   </section>
 </div>
 
@@ -277,12 +170,53 @@ Author: Eric Bidelman (ericbidelman@chromium.org)
  * Demos
  *
 -->
-<div class="slide transparent image" style="background: url('images/WebRTCDemo.jpg') no-repeat; -webkit-background-size: cover; background-size: cover;">
+<div class="slide centercontents" data-backgroundid="bg-pattern">
   <div>
+    <video id="sourcevid" autoplay></video>
     <section class="bottomRight dark" data-auto="">
-      <h1>Demo: getUserMedia, createObjectURL</h1>
+      <input id="startButton" value="Start Video" onclick="startVideo(success, error);" type="button">
+      <input id="stopButton" value="Stop Video" onclick="stopVideo();" type="button" style="display:none">
     </section>
   </div>
+
+  <script type="application/javascript">
+  var video = document.getElementById('sourcevid');
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  localStream = null;
+
+  function startVideo(success, error){
+      userMedia = navigator.getUserMedia({ video: true, audio: true }, success, error);
+  }
+
+  function stopVideo(){
+      localStream.stop();
+      stopButton.style.display = "none";
+      startButton.style.display = "block";
+  }
+
+  function success(stream) {
+      localStream = stream;
+      video.src = window.URL.createObjectURL(stream);
+      startButton.style.display = "none";
+      stopButton.style.display = "block";
+  }
+  function error(stream) {
+      alert("Error");
+  }
+
+  </script>
+</div>
+
+<div class="slide centercontents" data-backgroundid="bg-pattern">
+  <header>Demos</header>
+  <section>
+    <ol>
+      <li><a href="http://www.soundstep.com/blog/experiments/jsdetection/">Xylophone</a></li>
+      <li><a href="http://inmensia.com/files/aruco/getusermedia/getusermedia.html">QRCode</a>
+      <li><a href="http://www.shinydemos.com/facekat/">Facekat</a>
+      <li><a href="http://webcamtoy.com">Webcam Toy</a>
+    </ol>
+  </section>
 </div>
 
 <!--
@@ -329,7 +263,7 @@ Author: Eric Bidelman (ericbidelman@chromium.org)
     <pre>
 function createPeerConnection() {
     try {
-      pc = <b>new webkitPeerConnection({ iceServers:[ { uri:"stun:stun.l.google.com:19302" } ] },
+      pc = <b>new RTCPeerConnection({ iceServers:[ { uri:"stun:stun.l.google.com:19302" } ] },
                                                       null)</b>;
     } catch (e) {
       console.log("Failed to create PeerConnection, exception: " + e.message);
@@ -398,7 +332,7 @@ function onRemoteStreamAdded(event) {
   <header>DataChannel API</header>
   <section class="topWide dark" data-auto="">
     <ul>
-      <li>Echange peer-to-peer de données, avec une faible latence et un haut débit</li>
+      <li>Echange peer-to-peer de données, avec une faible latence</li>
       <li>Possibilité d'utiliser ou non l'audio/vidéo</li>
     </ul>
     <h1>Use cases:</h1>
@@ -441,28 +375,13 @@ function onSend() {
 </div>
 
 <div class="slide centercontents" data-backgroundid="bg-pattern">
-  <header>WebRTC: Le futur</header>
+  <header>Demos</header>
   <section>
-    <ul>
-      <li><a href="http://dev.chromium.org/developers/design-documents/extensions/proposed-changes/apis-under-development/webrtc-tab-content-capture">WebRTC Tab Content Capture (proposé le 14 août 2012)</a>
-      <blockquote>
-        <p>
-          <em>
-          The proposed APIs enable tab output to be captured as a media stream, and transmitted using WebRTC.
-          Supporting APIs are also defined to notify and query the capture status for tabs....
-          This API enables a special form of screencasting, but in which users are able to share the contents of a
-          tab rather than sharing their entire desktop.
-          </em>
-        </p>
-      </blockquote>
-      </li>
-      <li>
-        Partage d'écran
-      </li>
-      <li>
-        Enregistrement des flux
-      </li>
-    </ul>
+    <ol>
+      <li><a href="https://towtruck.mozillalabs.com/example/">TowTruck</a></li>
+      <li><a href="http://www.sharefest.me/">ShareFest</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/demos/detail/bananabread">Bananabread (Person shooter)</a>
+    </ol>
   </section>
 </div>
 
@@ -470,19 +389,9 @@ function onSend() {
   <header>Statut</header>
   <section>
     <ul>
-      <li>Chrome
-        <ul>
-          <li>depuis Chrome 23: getUserMedia, PeerConnection
-          </li>
-          <li>dev channel: DataChannel, TabCapture
-          </li>
-        </ul>
+      <li>Chrome + Chrome for Android Beta
       </li>
-      <li>Firefox
-        <ul>
-          <li>Firefox 17(Aurora): getUserMedia, PeerConnection, DataChannel
-          </li>
-        </ul>
+      <li>Firefox 22+ + Firefox for Android Nightly
       </li>
       <li>Opéra
         <ul>
@@ -504,15 +413,6 @@ function onSend() {
           </li>
         </ul>
       </li>
-    </ul>
-  </section>
-</div>
-
-<div class="slide centercontents" data-backgroundid="bg-pattern">
-  <header>Statut</header>
-  <section>
-    <ul>
-      <li>Mobile?</li>
     </ul>
   </section>
 </div>
@@ -548,9 +448,6 @@ function onSend() {
     <ul>
       <li>
         <a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/">http://www.html5rocks.com/en/tutorials/webrtc/basics/</a>
-      </li>
-      <li>
-        <a href="http://html5videoguide.net/presentations/WebDirCode2012/">http://html5videoguide.net/presentations/WebDirCode2012/</a>
       </li>
     </ul>
   </section>

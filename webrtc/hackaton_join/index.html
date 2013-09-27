@@ -175,9 +175,10 @@
                                 ]
                         });
 
+  var video = document.getElementById('sourcevid');
+
   function startVideo() {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    var video = document.getElementById('sourcevid');
     navigator.getUserMedia({audio:true, video:true}, success, error);
   }
   function success(stream) {

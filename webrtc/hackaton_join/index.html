@@ -135,7 +135,7 @@
                 <section>
 <h2>demo</h2>
 <div>
-    <video id="sourcevid" autoplay="true" muted="true"></video>
+    <video id="vid1" autoplay="true" muted="true"></video>
     <button onclick="startVideo()">Start</button>
 </div>
 
@@ -175,7 +175,7 @@
                                 ]
                         });
 
-  var video = document.getElementById('sourcevid');
+  var video = document.getElementById('vid1');
 
   function startVideo() {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;

@@ -168,6 +168,60 @@
                             <br>
                         </div>
                     </section>
+                    <section>
+                        <h2>Connection workflow</h2>
+                        <div>
+                            <ol>
+                                <li>get local media stream</li>
+                                <li>find other peer by signalisation</li>
+                                <li>access to remote stream</li>
+                            </ol>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Caller initialisation</h2>
+                        <div>
+                            <pre>
+                                <code class="html">
+var iceServers = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
+pc1 = new webkitRTCPeerConnection(servers);
+pc1.addStream(localstream);
+pc1.createOffer(gotDescription1);
+function gotDescription1(desc){
+  pc1.setLocalDescription(desc);
+  trace("Offer from pc1 \n" + desc.sdp);
+  pc2.setRemoteDescription(desc);
+  pc2.createAnswer(gotDescription2);
+}
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Callee initialisation</h2>
+                        <div>
+                            <pre>
+                                <code class="html">
+pc2 = new webkitRTCPeerConnection(servers);
+pc2.onaddstream = gotRemoteStream;
+function gotRemoteStream(e){
+  vid2.src = URL.createObjectURL(e.stream);
+}                                </code>
+                            </pre>
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <h2>Resources</h2>
+                    <div>
+                        <ul>
+                            <li><a href="http://www.w3.org/TR/2013/WD-webrtc-20130910/">http://www.w3.org/TR/2013/WD-webrtc-20130910/</a></li>
+                            <li><a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/">http://www.html5rocks.com/en/tutorials/webrtc/basics/</a></li>
+                            <li><a href="http://www.webrtc.org/">http://www.webrtc.org/</a></li>
+                            <li><a href="http://webrtc.googlecode.com/svn/trunk/samples/js/demos/html/pc1.html">http://webrtc.googlecode.com/svn/trunk/samples/js/demos/html/pc1.html</a></li>
+                            <li><a href="https://apprtc.appspot.com">https://apprtc.appspot.com</a></li>
+                        </ul>
+                    </div>
                 </section>
             </div>
             </div>
@@ -214,7 +268,6 @@
     console.log("stop video");
     video.pause();
     localMediaStream.stop();
-    $('vid1').fadeOut(500);
     startBtn.disabled = false;
     stopBtn.disabled = true;
   }

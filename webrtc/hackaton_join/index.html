@@ -123,13 +123,19 @@
   var video = document.getElementById('sourcevid');
   navigator.getUserMedia({ video: true, audio: true }, success, error);
   function success(stream) {
-      video.src = window.URL.createObjectURL(stream);
+    var URL = window.URL || window.webkitURL;
+    video.src = URL ? URL.createObjectURL( stream ) : stream;
   }
   function error() {
   }
 </script>
             </code>
             </pre>
+            <h3>
+                <font style="font-size: 18px;">
+                  Note: You cannot use getUserMedia on web pages served using file:// URLs.
+                </font>
+            </h3>
                     </div>
                 </section>
                 <section>
@@ -143,8 +149,24 @@
 </section>
                 </section>
                 <section>
-                    <h2>Peer-to-peer connection</h2>
-                    <br>
+                    <section>
+                        <h2>Peer-to-peer connection</h2>
+                        <br>
+                    </section>
+                    <section>
+                        <h2>Architecture 1/2</h2>
+                        <div>
+                            <img src="images/stun.png">
+                            <br>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Architecture 2/2</h2>
+                        <div>
+                            <img src="images/wdataPathways.jpg">
+                            <br>
+                        </div>
+                    </section>
                 </section>
             </div>
             </div>
@@ -176,15 +198,22 @@
                         });
 
   var video = document.getElementById('vid1');
+  var localMediaStream = null;
 
   function startVideo() {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({audio:true, video:true}, success, error);
   }
+  function stopVideo(){
+    video.pause();
+    localMediaStream.stop();
+    $('vid1').fadeOut(500);
+  }
   function success(stream) {
     console.log("success");
     var URL = window.URL || window.webkitURL;
     video.src = URL ? URL.createObjectURL( stream ) : stream;
+    localMediaStream = stream;
     video.play();
   }
   function error() {

@@ -212,6 +212,47 @@ function gotRemoteStream(e){
                     </section>
                 </section>
                 <section>
+                    <section>
+                        <h2>Datachannel</h2>
+                        <br>
+                    </section>
+                    <section>
+                        <h2>Use cases</h2>
+                        <div>
+                            <ul>
+                              <li>Chat application</li>
+                              <li>File transfer</li>
+                              <li>Gaming</li>
+                              <li>...</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Initialisation</h2>
+                        <div>
+                            <pre>
+                                <code class="html">
+var pc = new webkitRTCPeerConnection(servers,
+  {optional: [{RtpDataChannels: true}]});
+
+pc.ondatachannel = function(event) {
+  receiveChannel = event.channel;
+  receiveChannel.onmessage = function(event){
+    document.querySelector("div#receive").innerHTML = event.data;
+  };
+};
+
+sendChannel = pc.createDataChannel("sendDataChannel", {reliable: false});
+
+document.querySelector("button#send").onclick = function (){
+  var data = document.querySelector("textarea#send").value;
+  sendChannel.send(data);
+};                                </code>
+                            </pre>
+                        </div>
+                    </section>
+                </section>
+                <section>
                     <h2>Resources</h2>
                     <div>
                         <ul>

@@ -184,7 +184,7 @@
     console.log("success");
     var URL = window.URL || window.webkitURL;
     video.src = URL ? URL.createObjectURL( stream ) : stream;
-    //video.src = window.URL.createObjectURL(stream);
+    video.play();
   }
   function error() {
     console.log("error");

@@ -115,8 +115,8 @@
             <div>
             <pre>
             <code class="html">
-<video id="sourcevid" autoplay="true" muted="true"></video>
-<script>
+&lt;video id="sourcevid" autoplay="true" muted="true"></video>
+&lt;script>
   navigator.getUserMedia = navigator.getUserMedia ||
                            navigator.webkitGetUserMedia ||
                            navigator.mozGetUserMedia;
@@ -128,7 +128,7 @@
   }
   function error() {
   }
-</script>
+&lt;/script>
             </code>
             </pre>
             <h3>
@@ -142,7 +142,8 @@
 <h2>demo</h2>
 <div>
     <video id="vid1" autoplay="true" muted="true"></video>
-    <button onclick="startVideo()">Start</button>
+    <button id="startBtn" onclick="startVideo()">Start</button>
+    <button id="stopBtn" onclick="stopVideo()">Stop</button>
 </div>
 
 
@@ -199,15 +200,23 @@
 
   var video = document.getElementById('vid1');
   var localMediaStream = null;
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
 
   function startVideo() {
+    console.log("start video");
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({audio:true, video:true}, success, error);
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
   }
   function stopVideo(){
+    console.log("stop video");
     video.pause();
     localMediaStream.stop();
     $('vid1').fadeOut(500);
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
   }
   function success(stream) {
     console.log("success");

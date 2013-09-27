@@ -182,7 +182,9 @@
   }
   function success(stream) {
     console.log("success");
-    video.src = window.URL.createObjectURL(stream);
+    var URL = window.URL || window.webkitURL;
+    video.src = URL ? URL.createObjectURL( stream ) : stream;
+    //video.src = window.URL.createObjectURL(stream);
   }
   function error() {
     console.log("error");
